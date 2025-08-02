@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Catálogo de Productos | Camila Shop</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="logo.png" alt="Camila Shop Logo" class="logo">
+        <span class="brand">Camila <span class="brand-blue">Shop</span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html" class="active">Productos</a></li>
+        <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="productos-main">
+    <h1 class="productos-titulo">Catálogo de Productos</h1>
+    <div class="filtros">
+      <input type="text" id="filtro-nombre" class="filtro-input" placeholder="Buscar por nombre...">
+      <input type="text" id="filtro-codigo" class="filtro-input" placeholder="Buscar por código...">
+    </div>
+    <div class="catalogo-grid" id="productos-lista">
+      <!-- Productos cargan acá -->
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Camila Shop · Todos los derechos reservados.
+  </footer>
+
+  <script>
+    // URL del sheet (formato CSV)
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRNGCPSH5C80N8aS9rAbIqlTsrKHF5lGxy5yvGa9ek0WVL7Rjit6EQiZEk2736TV1gbPJKaSvlrxu-z/pub?gid=0&single=true&output=csv';
+
+    function csvToArray(csv) {
+      const lines = csv.trim().split('\n');
+      const headers = lines[0].split(',');
+      return lines.slice(1).map(line => {
+        const cols = line.split(',');
+        let obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = cols[i] ? cols[i].trim() : "");
+        return obj;
+      });
+    }
+
+    function renderProductos(data) {
+      const contenedor = document.getElementById('productos-lista');
+      contenedor.innerHTML = "";
+      if (data.length === 0) {
+        contenedor.innerHTML = '<p>No hay productos que coincidan.</p>';
+        return;
+      }
+      data.forEach(producto => {
+        const imgSrc = `images/${producto.codigo}.png`;
+        contenedor.innerHTML += `
+          <div class="product-card">
+            <img src="${imgSrc}" alt="${producto.nombre}" class="product-img" onerror="this.src='images/default.png'">
+            <div class="product-title">${producto.nombre}</div>
+            <div class="product-precio">$${Number(producto.precio).toLocaleString('es-AR')}</div>
+            <div class="product-stock${Number(producto.stock) === 0 ? ' agotado' : ''}">
+              ${Number(producto.stock) > 0 ? 'Stock: ' + producto.stock : 'Agotado'}
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function filtrarProductos(productos) {
+      const nombre = document.getElementById('filtro-nombre').value.toLowerCase();
+      const codigo = document.getElementById('filtro-codigo').value.toLowerCase();
+      return productos.filter(p =>
+        (!nombre || p.nombre.toLowerCase().includes(nombre)) &&
+        (!codigo || p.codigo.toLowerCase().includes(codigo))
+      );
+    }
+
+    let productosData = [];
+
+    fetch(SHEET_URL)
+      .then(res => res.text())
+      .then(csv => {
+        productosData = csvToArray(csv);
+        renderProductos(productosData);
+      });
+
+    document.addEventListener('input', e => {
+      if (e.target.classList.contains('filtro-input')) {
+        renderProductos(filtrarProductos(productosData));
+      }
+    });
+  </script>
+</body>
+</html>
