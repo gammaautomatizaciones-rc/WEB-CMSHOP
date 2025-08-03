@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consultar mis puntos | Camila Shop</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <div class="puntos-container">
+    <h1>Consultar mis puntos</h1>
+    <form id="puntos-form">
+      <label for="dni-input">Ingresá tu DNI:</label>
+      <input type="text" id="dni-input" maxlength="15" required autocomplete="off" placeholder="Ej: 30111222">
+      <button type="submit">Consultar</button>
+    </form>
+    <div id="resultado-puntos"></div>
+  </div>
+
+  <script>
+    const SHEET_URL = 'https://opensheet.elk.sh/1IAvQhWkSHT0PbDPCuJZpfSL8VbJ1K1gmTkUXMPhcKcA/PUNTOS';
+
+    document.getElementById("puntos-form").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const dniInput = document.getElementById("dni-input").value.trim();
+      const resultado = document.getElementById("resultado-puntos");
+      resultado.innerHTML = "Buscando...";
+
+      try {
+        const response = await fetch(SHEET_URL);
+        const data = await response.json();
+        const usuario = data.find(u => u.DNI === dniInput);
+
+        if (usuario) {
+          resultado.innerHTML = `<p><strong>${usuario.NOMBRE}</strong>, tenés <strong>${usuario.PUNTOS} puntos</strong> acumulados.</p>`;
+        } else {
+          resultado.innerHTML = `<p>No encontramos ese DNI. Verificá que esté bien escrito.</p>`;
+        }
+      } catch (error) {
+        resultado.innerHTML = "Ocurrió un error al consultar los puntos. Intentá de nuevo más tarde.";
+      }
+    });
+  </script>
+</body>
+</html>
