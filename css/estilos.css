@@ -111,16 +111,6 @@ body {
   .brand {
     font-size: 1.01rem;
   }
-  .nav-links {
-    gap: 9px;
-    font-size: .98rem;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-  .nav-links li {
-    margin-bottom: 2px;
-  }
-}
 
 /* ╔═════════════════════════════════════╗
    ║ MENÚ APILADO EXTRA PEQUEÑO         ║
@@ -734,6 +724,30 @@ footer {
 }
 @media (max-width: 650px) {
   .navbar-spacer { height: 140px; }
+}
+/* MENÚ MOBILE MEJORADO */
+@media (max-width: 650px) {
+  .nav-links {
+    position: absolute;
+    top: 58px;
+    left: 0;
+    width: 100vw;
+    background: rgba(255,255,255,0.93);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 24px #8246ab29;
+    border-radius: 0 0 18px 18px;
+    padding: 18px 0 18px 24px;
+    z-index: 99;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .nav-links a {
+    font-size: 1.12rem;
+    color: var(--violeta);
+    font-weight: bold;
+    padding: 2px 0;
+  }
 }
 
 
