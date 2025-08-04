@@ -257,6 +257,19 @@ body {
     font-size: .98rem;
   }
 }
+/* ╔═════════════════════════════════════╗
+   ║ RESPONSIVE: FIX CARRUSEL-NAVBAR    ║
+   ╚═════════════════════════════════════╝ */
+@media (max-width: 900px) {
+  .carrusel-section {
+    padding-top: 128px; /* Ajustá este valor según la altura real del header */
+  }
+}
+@media (max-width: 650px) {
+  .carrusel-section {
+    padding-top: 98px; /* Más compacto para móviles */
+  }
+}
 
 /* =====================================================
    PRODUCTOS (CATÁLOGO)
@@ -724,3 +737,4 @@ footer {
     gap: 12px;
   }
 }
+
