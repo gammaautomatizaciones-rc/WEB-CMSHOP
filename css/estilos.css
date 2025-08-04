@@ -33,6 +33,7 @@ body {
   padding: 16px 8vw;
   z-index: 10;
   animation: fadeDown 1s ease;
+  position: relative; /* <--- agregá esto */
 }
 @keyframes fadeDown {
   from { opacity: 0; transform: translateY(-25px);}
@@ -744,6 +745,30 @@ footer {
   }
   .nav-links a {
     font-size: 1.12rem;
+    color: var(--violeta);
+    font-weight: bold;
+    padding: 2px 0;
+  }
+}
+@media (max-width: 650px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 24px #8246ab29;
+    border-radius: 0 0 18px 18px;
+    padding: 22px 0 18px 24px;
+    z-index: 99;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    display: flex; /* fuerza columna si por algún motivo cambia */
+  }
+  .nav-links a {
+    font-size: 1.15rem;
     color: var(--violeta);
     font-weight: bold;
     padding: 2px 0;
