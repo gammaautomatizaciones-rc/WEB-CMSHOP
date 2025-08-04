@@ -760,4 +760,13 @@ footer {
     gap: 12px;
   }
 }
+.aviso-vencimiento {
+  margin: 20px 0 10px 0;
+  color: #b63b1c;
+  font-weight: bold;
+  background: #fff3e2;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
 
