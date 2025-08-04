@@ -23,7 +23,7 @@ body {
    ╚═════════════════════════════════════╝ */
 .navbar {
   width: 100%;
-  position: fixed;
+  position: sticky;
   top: 0;
   background: rgba(255,255,255,0.96);
   box-shadow: 0 2px 8px 0 rgba(50,30,80,0.06);
@@ -735,6 +735,7 @@ footer {
 @media (max-width: 650px) {
   .navbar-spacer { height: 140px; }
 }
+
 
 
 
