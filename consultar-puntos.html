@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consultar puntos | Camila Shop</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <div class="puntos-container">
+    <h1>Consultar mis puntos</h1>
+    <form id="puntos-form">
+      <label for="dni-input">Ingresá tu DNI:</label>
+      <input type="text" id="dni-input" maxlength="15" required autocomplete="off" placeholder="Ej: 30111222">
+      <button type="submit">Consultar</button>
+    </form>
+    <div id="resultado-puntos"></div>
+    <a href="index.html" class="btn-volver">← Volver al inicio</a>
+  </div>
+
+  <script>
+    // Link CSV público del sheet de PUNTOS
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRNGCPSH5C80N8aS9rAbIqlTsrKHF5lGxy5yvGa9ek0WVL7Rjit6EQiZEk2736TV1gbPJKaSvlrxu-z/pub?gid=6108245&single=true&output=csv';
+
+    document.getElementById("puntos-form").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const dniInput = document.getElementById("dni-input").value.trim();
+      const resultado = document.getElementById("resultado-puntos");
+      resultado.innerHTML = "Buscando...";
+
+      try {
+        const res = await fetch(SHEET_URL);
+        const csv = await res.text();
+        // Parsear el CSV
+        const rows = csv.trim().split('\n').map(row => row.split(','));
+        // La primera fila es el header
+        const headers = rows[0];
+        const data = rows.slice(1).map(row => ({
+          DNI: row[0],
+          NOMBRE: row[1],
+          PUNTOS: row[2]
+        }));
+        const usuario = data.find(u => u.DNI === dniInput);
+
+        if (usuario) {
+          resultado.innerHTML = `<p><strong>${usuario.NOMBRE}</strong>, tenés <strong>${usuario.PUNTOS} puntos</strong> acumulados.</p>`;
+        } else {
+          resultado.innerHTML = `<p>No encontramos ese DNI. Verificá que esté bien escrito.</p>`;
+        }
+      } catch (error) {
+        resultado.innerHTML = "Ocurrió un error al consultar los puntos. Intentá de nuevo más tarde.";
+      }
+    });
+  </script>
+</body>
+</html>
