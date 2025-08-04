@@ -726,34 +726,21 @@ footer {
 /* ╔═════════════════════════════════════╗
    ║ FIX GLOBAL: NUNCA TAPAR EL HEADER  ║
    ╚═════════════════════════════════════╝ */
-.carrusel-section,
-.productos-main,
-.sobre-main,
-.contacto-main,
-.puntos-container,
-.main-content {
-  padding-top: 110px !important;
+body > *:not(.navbar) {
+  margin-top: 140px !important;
 }
 @media (max-width: 900px) {
-  .carrusel-section,
-  .productos-main,
-  .sobre-main,
-  .contacto-main,
-  .puntos-container,
-  .main-content {
-    padding-top: 128px !important;
+  body > *:not(.navbar) {
+    margin-top: 170px !important;
   }
 }
 @media (max-width: 650px) {
-  .carrusel-section,
-  .productos-main,
-  .sobre-main,
-  .contacto-main,
-  .puntos-container,
-  .main-content {
-    padding-top: 98px !important;
+  body > *:not(.navbar) {
+    margin-top: 130px !important;
   }
 }
+
+
 
 
 
