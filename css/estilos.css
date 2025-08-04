@@ -1,16 +1,15 @@
-/* ╔═════════════════════════════════════╗
-   ║ VARIABLES Y RESET                  ║
-   ╚═════════════════════════════════════╝ */
 :root {
   --violeta: #8246ab;
   --azul: #31829b;
   --gris-fondo: #ede6f5;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   background: linear-gradient(135deg, var(--gris-fondo) 0%, #fff 100%);
@@ -18,9 +17,7 @@ body {
   min-height: 100vh;
 }
 
-/* ╔═════════════════════════════════════╗
-   ║ NAVBAR                             ║
-   ╚═════════════════════════════════════╝ */
+/* ===== NAVBAR BASE ===== */
 .navbar {
   width: 100%;
   position: relative;
@@ -56,6 +53,8 @@ body {
   color: var(--azul);
   font-weight: normal;
 }
+
+/* ===== NAV LINKS ===== */
 .nav-links {
   list-style: none;
   display: flex;
@@ -73,9 +72,21 @@ body {
   color: var(--azul);
 }
 
-/* ╔═════════════════════════════════════╗
-   ║ NAVBAR RESPONSIVE FIX              ║
-   ╚═════════════════════════════════════╝ */
+/* ===== MENÚ HAMBURGUESA ===== */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2.2rem;
+  color: var(--violeta);
+  cursor: pointer;
+  margin-left: 10px;
+  z-index: 120;
+  transition: color .2s;
+}
+.menu-toggle.active { color: var(--azul); }
+
+/* ===== NAVBAR RESPONSIVE ===== */
 @media (max-width: 900px) {
   .navbar {
     flex-direction: column;
@@ -93,24 +104,60 @@ body {
   .brand {
     font-size: 1.15rem;
   }
+  .menu-toggle { display: block; }
   .nav-links {
+    transition: max-height 0.4s cubic-bezier(.41,.35,.56,1.15), opacity 0.23s;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 24px #8246ab29;
+    border-radius: 0 0 18px 18px;
+    padding: 18px 0 18px 24px;
+    z-index: 99;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 14px;
-    font-size: 1rem;
-    flex-wrap: wrap;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+  }
+  .nav-links.open {
+    max-height: 340px;
+    opacity: 1;
+    pointer-events: all;
+  }
+  .nav-links a {
+    font-size: 1.15rem;
+    color: var(--violeta);
+    font-weight: bold;
+    padding: 2px 0;
   }
 }
+@media (min-width: 901px) {
+  .nav-links {
+    position: static !important;
+    max-height: none !important;
+    opacity: 1 !important;
+    pointer-events: all !important;
+    flex-direction: row;
+    gap: 28px;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    display: flex;
+  }
+  .menu-toggle { display: none !important; }
+}
 @media (max-width: 650px) {
-  .navbar {
-    padding: 6px 3vw;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .logo {
-    height: 26px;
-  }
-  .brand {
-    font-size: 1.01rem;
-  }
+  .logo { height: 26px;}
+  .brand { font-size: 1.01rem;}
+}
 
 /* ╔═════════════════════════════════════╗
    ║ MENÚ APILADO EXTRA PEQUEÑO         ║
@@ -794,6 +841,7 @@ footer {
     display: flex !important;
   }
 }
+
 
 
 
