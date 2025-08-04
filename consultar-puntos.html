@@ -7,6 +7,24 @@
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
+  <header>
+    <nav class="navbar">
+      <div class="logo-container">
+        <img src="logo.png" alt="Camila Shop Logo" class="logo">
+        <span class="brand">Camila <span class="brand-blue">Shop</span></span>
+      </div>
+      <!-- Botón hamburguesa -->
+      <button class="menu-toggle" aria-label="Abrir menú">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="consultar-puntos.html" class="active">Consultar Puntos</a></li>
+      </ul>
+    </nav>
+  </header>
+
   <div class="puntos-container">
     <h1>Consultar mis puntos</h1>
     <form id="puntos-form">
@@ -49,6 +67,24 @@
         }
       } catch (error) {
         resultado.innerHTML = "Ocurrió un error al consultar los puntos. Intentá de nuevo más tarde.";
+      }
+    });
+
+    // Menú hamburguesa
+    document.addEventListener('DOMContentLoaded', function () {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function () {
+          navLinks.classList.toggle('open');
+          menuToggle.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            menuToggle.classList.remove('active');
+          });
+        });
       }
     });
   </script>
