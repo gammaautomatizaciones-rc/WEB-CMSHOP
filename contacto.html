@@ -13,11 +13,14 @@
         <img src="logo.png" alt="Camila Shop Logo" class="logo">
         <span class="brand">Camila <span class="brand-blue">Shop</span></span>
       </div>
+      <!-- Botón hamburguesa -->
+      <button class="menu-toggle" aria-label="Abrir menú">&#9776;</button>
       <ul class="nav-links">
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="index.html#productos">Productos</a></li>
+        <li><a href="productos.html">Productos</a></li>
         <li><a href="sobre-nosotros.html">Sobre Nosotros</a></li>
         <li><a href="contacto.html" class="active">Contacto</a></li>
+        <li><a href="consultar-puntos.html">Consultar Puntos</a></li>
       </ul>
     </nav>
   </header>
@@ -106,6 +109,22 @@
           alert('Ocurrió un error. Por favor, probá de nuevo.');
         });
       });
+
+      // Menú hamburguesa
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function () {
+          navLinks.classList.toggle('open');
+          menuToggle.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            menuToggle.classList.remove('active');
+          });
+        });
+      }
     });
   </script>
 </body>
