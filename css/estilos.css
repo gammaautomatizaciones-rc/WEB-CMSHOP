@@ -1,18 +1,16 @@
-/* =====================================================
-   VARIABLES Y ESTILOS BASE
-===================================================== */
+/* ╔═════════════════════════════════════╗
+   ║ VARIABLES Y RESET                  ║
+   ╚═════════════════════════════════════╝ */
 :root {
   --violeta: #8246ab;
   --azul: #31829b;
   --gris-fondo: #ede6f5;
 }
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   background: linear-gradient(135deg, var(--gris-fondo) 0%, #fff 100%);
@@ -20,9 +18,9 @@ body {
   min-height: 100vh;
 }
 
-/* =====================================================
-   NAVBAR
-===================================================== */
+/* ╔═════════════════════════════════════╗
+   ║ NAVBAR                             ║
+   ╚═════════════════════════════════════╝ */
 .navbar {
   width: 100%;
   position: fixed;
@@ -75,9 +73,9 @@ body {
   color: var(--azul);
 }
 
-/* ==========================
-   NAVBAR - RESPONSIVE FIX
-========================== */
+/* ╔═════════════════════════════════════╗
+   ║ NAVBAR RESPONSIVE FIX              ║
+   ╚═════════════════════════════════════╝ */
 @media (max-width: 900px) {
   .navbar {
     flex-direction: column;
@@ -122,11 +120,11 @@ body {
   .nav-links li {
     margin-bottom: 2px;
   }
-  .carrusel-section {
-    padding-top: 73px;
-  }
 }
-/* Evita que se "salte" el menú si hay muchas opciones */
+
+/* ╔═════════════════════════════════════╗
+   ║ MENÚ APILADO EXTRA PEQUEÑO         ║
+   ╚═════════════════════════════════════╝ */
 @media (max-width: 450px) {
   .nav-links {
     flex-direction: column;
@@ -139,11 +137,42 @@ body {
   }
 }
 
-/* =====================================================
-   CARRUSEL DE INICIO (SOLO INDEX)
-===================================================== */
+/* ╔═════════════════════════════════════╗
+   ║ FIX: PADDING ARRIBA PARA TODAS LAS PÁGINAS
+   ╚═════════════════════════════════════╝ */
+.main-content,
+.productos-main,
+.sobre-main,
+.contacto-main,
+.puntos-container,
 .carrusel-section {
-  padding-top: 100px;
+  padding-top: 110px;
+}
+@media (max-width: 900px) {
+  .main-content,
+  .productos-main,
+  .sobre-main,
+  .contacto-main,
+  .puntos-container,
+  .carrusel-section {
+    padding-top: 128px;
+  }
+}
+@media (max-width: 650px) {
+  .main-content,
+  .productos-main,
+  .sobre-main,
+  .contacto-main,
+  .puntos-container,
+  .carrusel-section {
+    padding-top: 98px;
+  }
+}
+
+/* ╔═════════════════════════════════════╗
+   ║ CARRUSEL DE INICIO (INDEX)         ║
+   ╚═════════════════════════════════════╝ */
+.carrusel-section {
   background: transparent;
   min-height: 520px;
   display: flex;
@@ -236,7 +265,9 @@ body {
   font-size: 1.14rem;
 }
 
-/* Carrusel compactado en mobile */
+/* ╔═════════════════════════════════════╗
+   ║ CARRUSEL COMPACTADO EN MOBILE      ║
+   ╚═════════════════════════════════════╝ */
 @media (max-width: 650px) {
   .carrusel {
     height: 145px;
@@ -255,19 +286,6 @@ body {
   }
   .carrusel-titulo p {
     font-size: .98rem;
-  }
-}
-/* ╔═════════════════════════════════════╗
-   ║ RESPONSIVE: FIX CARRUSEL-NAVBAR    ║
-   ╚═════════════════════════════════════╝ */
-@media (max-width: 900px) {
-  .carrusel-section {
-    padding-top: 128px; /* Ajustá este valor según la altura real del header */
-  }
-}
-@media (max-width: 650px) {
-  .carrusel-section {
-    padding-top: 98px; /* Más compacto para móviles */
   }
 }
 
@@ -453,7 +471,7 @@ body {
   to {opacity: 1; transform: translateY(0);}
 }
 /* ╔═════════════════════════════════════╗
-   ║ BOTÓN VOLVER (CONSULTAR PUNTOS)    ║
+   ║ BOTÓN VOLVER AL INICIO (PUNTOS)    ║
    ╚═════════════════════════════════════╝ */
 .btn-volver {
   display: inline-block;
@@ -737,4 +755,5 @@ footer {
     gap: 12px;
   }
 }
+
 
