@@ -724,21 +724,18 @@ footer {
   }
 }
 /* ╔═════════════════════════════════════╗
-   ║ FIX GLOBAL: NUNCA TAPAR EL HEADER  ║
+   ║ ESPACIADOR DE NAVBAR FIJA          ║
    ╚═════════════════════════════════════╝ */
-body > *:not(.navbar) {
-  margin-top: 140px !important;
+.navbar-spacer {
+  height: 72px; /* Altura base igual a tu navbar desktop */
 }
 @media (max-width: 900px) {
-  body > *:not(.navbar) {
-    margin-top: 170px !important;
-  }
+  .navbar-spacer { height: 96px; }
 }
 @media (max-width: 650px) {
-  body > *:not(.navbar) {
-    margin-top: 130px !important;
-  }
+  .navbar-spacer { height: 140px; }
 }
+
 
 
 
