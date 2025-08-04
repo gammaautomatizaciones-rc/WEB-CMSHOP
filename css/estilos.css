@@ -138,38 +138,6 @@ body {
 }
 
 /* ╔═════════════════════════════════════╗
-   ║ FIX: PADDING ARRIBA PARA TODAS LAS PÁGINAS
-   ╚═════════════════════════════════════╝ */
-.main-content,
-.productos-main,
-.sobre-main,
-.contacto-main,
-.puntos-container,
-.carrusel-section {
-  padding-top: 110px;
-}
-@media (max-width: 900px) {
-  .main-content,
-  .productos-main,
-  .sobre-main,
-  .contacto-main,
-  .puntos-container,
-  .carrusel-section {
-    padding-top: 128px;
-  }
-}
-@media (max-width: 650px) {
-  .main-content,
-  .productos-main,
-  .sobre-main,
-  .contacto-main,
-  .puntos-container,
-  .carrusel-section {
-    padding-top: 98px;
-  }
-}
-
-/* ╔═════════════════════════════════════╗
    ║ CARRUSEL DE INICIO (INDEX)         ║
    ╚═════════════════════════════════════╝ */
 .carrusel-section {
@@ -786,5 +754,6 @@ footer {
     padding-top: 98px !important;
   }
 }
+
 
 
