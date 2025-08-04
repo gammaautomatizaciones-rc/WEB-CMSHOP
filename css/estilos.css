@@ -773,6 +773,28 @@ footer {
     padding: 2px 0;
   }
 }
+@media (max-width: 650px) {
+  .navbar {
+    position: relative !important;
+  }
+  .nav-links {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    width: 100vw !important;
+    background: rgba(255,255,255,0.98) !important;
+    backdrop-filter: blur(8px) !important;
+    box-shadow: 0 6px 24px #8246ab29 !important;
+    border-radius: 0 0 18px 18px !important;
+    padding: 22px 0 18px 24px !important;
+    z-index: 999 !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+    display: flex !important;
+  }
+}
+
 
 
 
