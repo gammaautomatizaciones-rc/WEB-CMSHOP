@@ -60,13 +60,14 @@ body {
   list-style: none;
   display: flex;
   gap: 28px;
+  align-items: center;
 }
 .nav-links a {
   text-decoration: none;
   color: var(--violeta);
   font-weight: 500;
   font-size: 1.1rem;
-  transition: color 0.3s;
+  transition: color 0.3s, font-size 0.2s;
 }
 .nav-links a:hover,
 .nav-links a.active {
@@ -74,7 +75,7 @@ body {
 }
 
 /* ╔═════════════════════════════════════╗
-   ║ NAVBAR RESPONSIVE FIX              ║
+   ║ NAVBAR RESPONSIVE (ajustado y limpio)
    ╚═════════════════════════════════════╝ */
 @media (max-width: 900px) {
   .navbar {
@@ -91,37 +92,73 @@ body {
     height: 32px;
   }
   .brand {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
   }
   .nav-links {
     gap: 14px;
-    font-size: 1rem;
-    flex-wrap: wrap;
+  }
+  .nav-links a {
+    font-size: 0.98rem;
   }
 }
+
 @media (max-width: 650px) {
   .navbar {
-    padding: 6px 3vw;
+    padding: 7px 3vw;
     flex-direction: column;
     gap: 2px;
   }
   .logo {
-    height: 26px;
+    height: 24px;
   }
   .brand {
-    font-size: 1.01rem;
+    font-size: 0.92rem;
   }
   .nav-links {
     gap: 9px;
-    font-size: .98rem;
-    flex-wrap: wrap;
-    justify-content: flex-start;
   }
-  .nav-links li {
-    margin-bottom: 2px;
+  .nav-links a {
+    font-size: 0.89rem;
   }
 }
 
+@media (max-width: 450px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100vw;
+  }
+  .navbar {
+    align-items: flex-start;
+    padding: 4px 2vw;
+  }
+  .logo {
+    height: 20px;
+  }
+  .brand {
+    font-size: 0.8rem;
+  }
+  .nav-links a {
+    font-size: 0.78rem;
+  }
+}
+
+/* ╔═════════════════════════════════════╗
+   ║ ESPACIADOR DE NAVBAR FIJA          ║
+   ╚═════════════════════════════════════╝ */
+.navbar-spacer {
+  height: 72px;
+}
+@media (max-width: 900px) {
+  .navbar-spacer { height: 86px; }
+}
+@media (max-width: 650px) {
+  .navbar-spacer { height: 54px; }
+}
+@media (max-width: 450px) {
+  .navbar-spacer { height: 44px; }
+}
 /* ╔═════════════════════════════════════╗
    ║ MENÚ APILADO EXTRA PEQUEÑO         ║
    ╚═════════════════════════════════════╝ */
@@ -723,15 +760,4 @@ footer {
     gap: 12px;
   }
 }
-/* ╔═════════════════════════════════════╗
-   ║ ESPACIADOR DE NAVBAR FIJA          ║
-   ╚═════════════════════════════════════╝ */
-.navbar-spacer {
-  height: 72px; /* Altura base igual a tu navbar desktop */
-}
-@media (max-width: 900px) {
-  .navbar-spacer { height: 96px; }
-}
-@media (max-width: 650px) {
-  .navbar-spacer { height: 140px; }
-}
+
