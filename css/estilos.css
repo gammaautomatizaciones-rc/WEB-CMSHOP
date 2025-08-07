@@ -769,4 +769,32 @@ footer {
   border-radius: 8px;
   text-align: center;
 }
+/* Estilo para el selector de rubros */
+.filtro-select {
+  padding: 8px 14px;
+  border: 2px solid var(--violeta);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--violeta);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.filtro-select:hover {
+  background: var(--violeta);
+  color: #fff;
+}
+
+.filtro-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(130, 70, 171, 0.3);
+}
+
+/* Opciones del dropdown */
+.filtro-select option {
+  font-weight: normal;
+  color: #333;
+}
 
