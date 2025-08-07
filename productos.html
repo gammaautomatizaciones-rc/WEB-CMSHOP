@@ -26,10 +26,13 @@
   <!-- MAIN CATÁLOGO -->
   <main class="productos-main" style="margin-top:90px;">
     <h1 style="color:var(--violeta);margin-bottom:10px;">Catálogo de Productos</h1>
-    <p style="color:#555;max-width:500px;margin:0 auto 26px auto;">Encontrá todos nuestros productos. Usá el buscador o filtrá por nombre o código.</p>
+    <p style="color:#555;max-width:500px;margin:0 auto 26px auto;">Encontrá todos nuestros productos. Usá el buscador o filtrá por nombre, código o rubro.</p>
 
-    <div class="filtros" style="margin-bottom:22px;">
+    <div class="filtros" style="margin-bottom:22px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
       <input id="buscador" class="filtro-input" type="search" placeholder="Buscar por nombre o código...">
+      <select id="filtroRubro" class="filtro-select">
+        <option value="">Cualquier rubro</option>
+      </select>
     </div>
 
     <div id="catalogo" class="catalogo-grid"></div>
@@ -42,31 +45,48 @@
     © 2025 Camila Shop | Todos los derechos reservados.
   </footer>
 
-  <!-- SCRIPT OPTIMIZADO -->
+  <!-- SCRIPT -->
   <script>
-    // CONFIGURACIÓN
     const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRNGCPSH5C80N8aS9rAbIqlTsrKHF5lGxy5yvGa9ek0WVL7Rjit6EQiZEk2736TV1gbPJKaSvlrxu-z/pub?gid=0&single=true&output=csv';
-    const IMG_PATH = 'img/'; // carpeta donde subis las imágenes (nombre = código.jpg o png)
-
-    // PARÁMETROS PAGINADO
+    const IMG_PATH = 'img/';
     const PAGE_SIZE = 24;
+
     let productos = [], filtrados = [];
     let pagina = 1, totalPaginas = 1;
 
-    // Cargar productos del sheet (csv)
     async function cargarProductos() {
       const res = await fetch(SHEET_URL);
       const csv = await res.text();
       productos = csv.trim().split('\n').slice(1).map(row => {
-        const [codigo, nombre, precio, stock] = row.split(',');
-        return { codigo: codigo.trim(), nombre: nombre.trim(), precio: precio.trim(), stock: stock.trim() };
+        const [codigo, nombre, precio, stock, rubro] = row.split(',');
+        return {
+          codigo: codigo.trim(),
+          nombre: nombre.trim(),
+          precio: precio.trim(),
+          stock: stock.trim(),
+          rubro: (rubro || '').trim()
+        };
       });
+
+      // Poblar el select con rubros únicos y ordenados
+      const rubrosUnicos = [...new Set(productos
+        .map(p => p.rubro)
+        .filter(r => r && r.length > 0)
+      )].sort();
+
+      const selectRubro = document.getElementById('filtroRubro');
+      rubrosUnicos.forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = r;
+        opt.textContent = r;
+        selectRubro.appendChild(opt);
+      });
+
       filtrados = productos;
       renderCatalogo();
       renderPaginado();
     }
 
-    // Renderizar productos paginados
     function renderCatalogo() {
       const cont = document.getElementById('catalogo');
       cont.innerHTML = '';
@@ -80,9 +100,7 @@
 
       for (let i = desde; i < hasta; i++) {
         const p = filtrados[i];
-        // Admite .jpg o .png para la imagen
         let imgSrc = IMG_PATH + p.codigo + '.jpg';
-        // Si querés que busque png si no encuentra jpg, usá un pequeño truco con onerror (fallback)
         cont.innerHTML += `
           <div class="product-card">
             <img class="product-img" src="${imgSrc}" alt="${p.nombre}" loading="lazy"
@@ -97,7 +115,6 @@
       }
     }
 
-    // Renderizar paginado
     function renderPaginado() {
       const pagCont = document.getElementById('paginado');
       if (totalPaginas <= 1) { pagCont.innerHTML = ''; return; }
@@ -108,7 +125,6 @@
       pagCont.innerHTML = html;
     }
 
-    // Cambio de página
     window.cambiarPagina = function(num) {
       pagina = num;
       renderCatalogo();
@@ -116,16 +132,24 @@
       window.scrollTo({top:130,behavior:'smooth'});
     }
 
-    // Filtro buscador
+    function aplicarFiltros() {
+      const q = document.getElementById('buscador').value.trim().toLowerCase();
+      const rubroSel = document.getElementById('filtroRubro').value;
+      filtrados = productos.filter(p => {
+        const matchTexto = p.nombre.toLowerCase().includes(q) || p.codigo.toLowerCase().includes(q);
+        const matchRubro = rubroSel ? p.rubro === rubroSel : true;
+        return matchTexto && matchRubro;
+      });
+      pagina = 1;
+      renderCatalogo();
+      renderPaginado();
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('buscador').addEventListener('input', function() {
-        const q = this.value.trim().toLowerCase();
-        filtrados = productos.filter(p =>
-          p.nombre.toLowerCase().includes(q) || p.codigo.toLowerCase().includes(q)
-        );
-        pagina = 1;
-        renderCatalogo();
-        renderPaginado();
+      document.getElementById('buscador').addEventListener('input', aplicarFiltros);
+      document.getElementById('filtroRubro').addEventListener('change', function() {
+        document.getElementById('buscador').value = '';
+        aplicarFiltros();
       });
       cargarProductos();
     });
