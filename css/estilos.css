@@ -412,7 +412,7 @@ body {
 
 /* Opciones del dropdown */
 .filtro-select option {
-  font-weight: normal;
+  font-weight: bold;
   color: #333;
 }
 
